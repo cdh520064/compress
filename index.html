@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=0">
+    <title>图片压缩上传</title>
+    <script src="dist/jquery-1.11.2.min.js"></script>
+    <script src="dist/exif.js"></script>
+    <script src="dist/compress.js"></script>
+</head>
+<style>  
+    .upload-btn{
+        position: relative;
+        width: 200px;
+        height: 100px;
+        margin-bottom: 20px;
+        background-color: aqua;
+        overflow: hidden;
+        font-size: 20px;
+        text-align: center;
+        line-height: 100px;
+    }
+    #upload{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 200px;
+        height: 100px;
+        opacity: 0;
+    }   
+    img{
+        width:200px;
+        border:1px solid #ff0000;
+    }
+</style>
+<body>
+    <div class="upload-box">
+        <div class="upload-btn">
+            <span>上传图片</span>
+            <input type="file" id="upload" accept='image/*' multiple>
+        </div>
+        <input type="hidden" name="uploadurl" id="uploadurl" >
+        <div id="preview-img"></div>
+    </div>   
+</body>
+</html>
+<script>
+    var compressModal = new compressUpload('upload', {
+        uploadUrl:'upload.php',
+        limitSize: 100, //单位kb, 原图大小小于100kb时，不压缩，直接上传
+        success: function(data){
+            $('#uploadurl').val(data);
+            $('#preview-img').append('<img src="'+data+'">');
+        }
+    });
+</script>
