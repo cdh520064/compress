@@ -56,13 +56,14 @@
 				                //获取拍照的信息，解决IOS拍出来的照片旋转问题
 				                EXIF.getData(image, function () {
 				                    Orientation = EXIF.getTag(this, 'Orientation');
-				                });              
+				                });   
+				                console.log(Orientation);           
 
 				                // 首先旋转成正确位置 再根据大小压缩 然后根据像素判断是否需要通过瓦片绘制
 				                let canvas;
 
 				                // 修复ios拍照上传图片的时被旋转的问题
-				                if (Orientation !== '' && Orientation !== 1) {
+				                if (Orientation !== undefined && Orientation !== '' && Orientation !== 1) {
 				                    // 创建临时canvas  用来调整正确方位
 				                    canvas = document.createElement('canvas');
 
